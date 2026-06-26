@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Zen Nocturne | Performance Charts</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Newsreader:ital,wght@0,200;0,300;0,400;1,200;1,300&family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&family=Newsreader:wght@100..900&display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "on-tertiary-fixed-variant": "#394857",
+                    "on-secondary-container": "#acbc7a",
+                    "on-background": "#e5e1e4",
+                    "tertiary-fixed": "#d4e4f6",
+                    "inverse-surface": "#e5e1e4",
+                    "outline-variant": "#4d4635",
+                    "on-error-container": "#ffdad6",
+                    "surface-variant": "#353437",
+                    "on-primary": "#3c2f00",
+                    "secondary": "#bdce89",
+                    "on-surface": "#e5e1e4",
+                    "outline": "#99907c",
+                    "error": "#ffb4ab",
+                    "secondary-fixed": "#d9eaa3",
+                    "tertiary-container": "#a5b5c6",
+                    "on-secondary-fixed-variant": "#3e4c16",
+                    "on-tertiary-container": "#374755",
+                    "surface-container": "#201f21",
+                    "on-tertiary": "#223240",
+                    "on-secondary": "#283501",
+                    "primary": "#f2ca50",
+                    "background": "#131315",
+                    "on-secondary-fixed": "#161f00",
+                    "secondary-fixed-dim": "#bdce89",
+                    "on-primary-fixed": "#241a00",
+                    "surface": "#131315",
+                    "secondary-container": "#3e4c16",
+                    "surface-container-high": "#2a2a2c",
+                    "on-primary-container": "#554300",
+                    "surface-bright": "#39393b",
+                    "error-container": "#93000a",
+                    "surface-tint": "#e9c349",
+                    "surface-container-low": "#1b1b1d",
+                    "surface-dim": "#131315",
+                    "surface-container-lowest": "#0e0e10",
+                    "on-tertiary-fixed": "#0d1d2a",
+                    "tertiary": "#c0d0e2",
+                    "on-primary-fixed-variant": "#574500",
+                    "primary-fixed": "#ffe088",
+                    "inverse-primary": "#735c00",
+                    "on-error": "#690005",
+                    "primary-container": "#d4af37",
+                    "inverse-on-surface": "#303032",
+                    "primary-fixed-dim": "#e9c349",
+                    "on-surface-variant": "#d0c5af",
+                    "surface-container-highest": "#353437",
+                    "tertiary-fixed-dim": "#b8c8da"
+            },
+            "fontFamily": {
+                    "label-sm": ["Inter"],
+                    "display-lg-mobile": ["Newsreader"],
+                    "body-lg": ["Inter"],
+                    "headline-md": ["Newsreader"],
+                    "display-lg": ["Newsreader"],
+                    "signature-num": ["Newsreader"],
+                    "body-md": ["Inter"]
+            },
+            "fontSize": {
+                    "label-sm": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                    "display-lg-mobile": ["36px", {"lineHeight": "44px", "letterSpacing": "-0.01em", "fontWeight": "300"}],
+                    "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                    "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "400"}],
+                    "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "300"}],
+                    "signature-num": ["64px", {"lineHeight": "64px", "fontWeight": "200"}],
+                    "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        body {
+            background-color: #131315;
+            color: #e5e1e4;
+            -webkit-tap-highlight-color: transparent;
+            overflow-x: hidden;
+        }
+        .chart-mask {
+            mask-image: linear-gradient(to top, transparent, black 15%, black 85%, transparent);
+        }
+        .hide-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .hide-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+        .category-muted {
+            opacity: 0.15;
+            filter: grayscale(1);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .active-scale {
+            transform: scale(0.95);
+            transition: transform 0.15s ease;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="font-body-md text-body-md selection:bg-primary-container selection:text-on-primary-container">
+<!-- Top AppBar (Mobile Style) -->
+<header class="fixed top-0 left-0 w-full z-40 bg-surface/80 backdrop-blur-md px-6 py-4 flex items-center justify-between">
+<div class="flex flex-col">
+<h1 class="font-display-lg-mobile text-display-lg-mobile text-primary leading-tight">Charts</h1>
+<p class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-widest">Monthly Variance</p>
+</div>
+<div class="w-10 h-10 rounded-full bg-surface-container-high border border-outline-variant flex items-center justify-center overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="A sophisticated close-up portrait of a professional woman in a dimly lit, minimalist office setting. The lighting is low-key with warm golden highlights reflecting off a glass surface, maintaining a dark and intimate aesthetic. The colors are deep charcoal, ink black, and subtle gold accents, matching a premium personal instrument brand identity." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBWkigSCxmhdeRYLhGP9RkZIHifdYkcTIdf6RHjkcClR7tIdmWb4QGPbca-RMPUsLsWiWZ4sTfrHHPTKZ6kH6xnOtj1J-oA1G54M6oftwPzEUCx-tWomgA3iZObCLHQFAUSVqWh4eHchvRx4i8DOXefoHcOn5hjY8y5l3hG2yKIUKfDY7S9p5R0Sn-OvZEY2R46Ya_E5b9VjgZXcfYzBEu0Zg6cpr2_YOm7gnoHD5jygHQG6CU8muk--3aJlmp-Oh1_qc8VLX4qPM1T"/>
+</div>
+</header>
+<!-- Main Content Canvas -->
+<main class="pt-24 pb-32 min-h-screen px-4 flex flex-col items-center">
+<!-- Large Interactive Chart Area -->
+<div class="w-full flex-grow flex flex-col justify-center relative min-h-[442px]">
+<!-- Chart Background Grid -->
+<div class="absolute inset-0 flex flex-col justify-between py-8 pointer-events-none opacity-20">
+<div class="border-t border-outline-variant w-full"></div>
+<div class="border-t border-outline-variant w-full"></div>
+<div class="border-t border-outline-variant w-full"></div>
+<div class="border-t border-outline-variant w-full"></div>
+<div class="border-t border-outline-variant w-full"></div>
+</div>
+<!-- SVG Data Visualizer -->
+<div class="relative w-full h-[397px] mt-8">
+<svg class="w-full h-full overflow-visible" preserveaspectratio="none" viewbox="0 0 400 300">
+<!-- Overall/Aggregate Line -->
+<path class="text-primary transition-all duration-700" d="M0,250 Q50,200 100,220 T200,150 T300,180 T400,120" fill="none" id="overall-path" stroke="currentColor" stroke-width="3"></path>
+<!-- Category Paths (Dimmed by default in "Overall Only" state) -->
+<g class="category-muted transition-all duration-500" id="category-layers">
+<path d="M0,280 Q80,240 150,260 T300,200 T400,240" fill="none" stroke="#bdce89" stroke-dasharray="4 2" stroke-width="1.5"></path>
+<path d="M0,200 Q100,150 180,180 T320,100 T400,140" fill="none" stroke="#c0d0e2" stroke-dasharray="4 2" stroke-width="1.5"></path>
+</g>
+<!-- Interaction Points (Overall) -->
+<circle class="animate-pulse" cx="200" cy="150" fill="#f2ca50" r="6"></circle>
+<circle cx="200" cy="150" fill="#f2ca50" fill-opacity="0.2" r="12"></circle>
+</svg>
+<!-- Floating Metric Card -->
+<div class="absolute top-1/4 right-4 bg-surface-container-high border border-outline-variant p-4 rounded-xl shadow-2xl backdrop-blur-sm animate-fade-in">
+<span class="font-label-sm text-label-sm text-on-surface-variant block mb-1">Peak Focus</span>
+<div class="flex items-baseline gap-1">
+<span class="font-signature-num text-headline-md text-primary">82</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">%</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Scrollable Legend & Toggles -->
+<section class="w-full mt-auto">
+<div class="flex items-center justify-between mb-6">
+<h3 class="font-headline-md text-headline-md italic">Metrics</h3>
+<button class="flex items-center gap-2 bg-secondary-container text-on-secondary-container px-4 py-2 rounded-full transition-all active:scale-95" id="toggle-overall">
+<span class="material-symbols-outlined text-[18px]">visibility</span>
+<span class="font-label-sm text-label-sm">Overall Only</span>
+</button>
+</div>
+<!-- Horizontal Scrollable Legend -->
+<div class="flex gap-4 overflow-x-auto hide-scrollbar pb-4 -mx-4 px-4 snap-x">
+<!-- Legend Item 1 -->
+<div class="flex-shrink-0 snap-center w-32 p-4 rounded-2xl bg-surface-container border border-outline-variant transition-all hover:bg-surface-container-high cursor-pointer group">
+<div class="w-2 h-2 rounded-full bg-primary mb-3"></div>
+<p class="font-label-sm text-label-sm text-on-surface group-hover:text-primary transition-colors">Balance</p>
+<p class="text-[20px] font-signature-num mt-1">4.2</p>
+</div>
+<!-- Legend Item 2 -->
+<div class="flex-shrink-0 snap-center w-32 p-4 rounded-2xl bg-surface-container border border-outline-variant opacity-40 transition-all hover:opacity-100 cursor-pointer group">
+<div class="w-2 h-2 rounded-full bg-secondary mb-3"></div>
+<p class="font-label-sm text-label-sm text-on-surface-variant group-hover:text-secondary transition-colors">Sleep</p>
+<p class="text-[20px] font-signature-num mt-1">7.5h</p>
+</div>
+<!-- Legend Item 3 -->
+<div class="flex-shrink-0 snap-center w-32 p-4 rounded-2xl bg-surface-container border border-outline-variant opacity-40 transition-all hover:opacity-100 cursor-pointer group">
+<div class="w-2 h-2 rounded-full bg-tertiary mb-3"></div>
+<p class="font-label-sm text-label-sm text-on-surface-variant group-hover:text-tertiary transition-colors">Focus</p>
+<p class="text-[20px] font-signature-num mt-1">62%</p>
+</div>
+<!-- Legend Item 4 -->
+<div class="flex-shrink-0 snap-center w-32 p-4 rounded-2xl bg-surface-container border border-outline-variant opacity-40 transition-all hover:opacity-100 cursor-pointer group">
+<div class="w-2 h-2 rounded-full bg-error mb-3"></div>
+<p class="font-label-sm text-label-sm text-on-surface-variant group-hover:text-error transition-colors">Stress</p>
+<p class="text-[20px] font-signature-num mt-1">Low</p>
+</div>
+</div>
+</section>
+</main>
+<!-- Shared BottomNavBar Component -->
+<nav class="fixed bottom-0 w-full z-50 flex justify-around items-center px-4 py-3 md:hidden bg-surface-container dark:bg-surface-container shadow-lg">
+<a class="flex flex-col items-center justify-center text-on-surface-variant px-4 py-1 hover:bg-surface-container-high transition-colors active:scale-95 duration-150" href="#">
+<span class="material-symbols-outlined">calendar_today</span>
+<span class="font-label-sm text-label-sm">Today</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant px-4 py-1 hover:bg-surface-container-high transition-colors active:scale-95 duration-150" href="#">
+<span class="material-symbols-outlined">event_upcoming</span>
+<span class="font-label-sm text-label-sm">Plan</span>
+</a>
+<a class="flex flex-col items-center justify-center bg-secondary-container text-on-secondary-container rounded-full px-4 py-1 active:scale-95 duration-150" href="#">
+<span class="material-symbols-outlined">query_stats</span>
+<span class="font-label-sm text-label-sm">Stats</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant px-4 py-1 hover:bg-surface-container-high transition-colors active:scale-95 duration-150" href="#">
+<span class="material-symbols-outlined">balance</span>
+<span class="font-label-sm text-label-sm">Weights</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant px-4 py-1 hover:bg-surface-container-high transition-colors active:scale-95 duration-150" href="#">
+<span class="material-symbols-outlined">settings</span>
+<span class="font-label-sm text-label-sm">Settings</span>
+</a>
+</nav>
+<script>
+        const toggleBtn = document.getElementById('toggle-overall');
+        const categoryLayers = document.getElementById('category-layers');
+        const overallPath = document.getElementById('overall-path');
+        let isOverallOnly = true;
+
+        toggleBtn.addEventListener('click', () => {
+            isOverallOnly = !isOverallOnly;
+            
+            if (isOverallOnly) {
+                categoryLayers.classList.add('category-muted');
+                toggleBtn.classList.add('bg-secondary-container', 'text-on-secondary-container');
+                toggleBtn.classList.remove('bg-surface-container-high', 'text-on-surface-variant');
+                toggleBtn.querySelector('.material-symbols-outlined').textContent = 'visibility';
+                overallPath.setAttribute('stroke-width', '4');
+            } else {
+                categoryLayers.classList.remove('category-muted');
+                toggleBtn.classList.remove('bg-secondary-container', 'text-on-secondary-container');
+                toggleBtn.classList.add('bg-surface-container-high', 'text-on-surface-variant');
+                toggleBtn.querySelector('.material-symbols-outlined').textContent = 'visibility_off';
+                overallPath.setAttribute('stroke-width', '2');
+            }
+        });
+
+        // Simple parallax or entry animation for legend cards
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('translate-y-0', 'opacity-100');
+                    entry.target.classList.remove('translate-y-4', 'opacity-0');
+                }
+            });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('.snap-center').forEach(card => {
+            card.classList.add('transition-all', 'duration-500', 'translate-y-4', 'opacity-0');
+            observer.observe(card);
+        });
+    </script>
+</body></html>

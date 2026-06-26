@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Zen Nocturne | Charts &amp; Analysis</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&amp;family=Newsreader:ital,wght@0,200;0,300;0,400;1,200&amp;family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&amp;family=Newsreader:wght@100..900&amp;display=swap" rel="stylesheet"/>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 24;
+        }
+        /* Custom scrollbar for minimalist look */
+        ::-webkit-scrollbar { width: 4px; }
+        ::-webkit-scrollbar-track { background: #131315; }
+        ::-webkit-scrollbar-thumb { background: #353437; border-radius: 10px; }
+        
+        .chart-container {
+            position: relative;
+            background: linear-gradient(to bottom, rgba(32, 31, 33, 0.5), transparent);
+        }
+        .grid-line {
+            stroke: #2c2c2e;
+            stroke-width: 1;
+        }
+        .axis-label {
+            fill: #99907c;
+            font-family: 'Inter', sans-serif;
+            font-size: 10px;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+        .line-main {
+            stroke: #f2ca50;
+            stroke-width: 3;
+            fill: none;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+            filter: drop-shadow(0 0 8px rgba(242, 202, 80, 0.2));
+        }
+        .line-sub {
+            stroke-width: 1.5;
+            fill: none;
+            stroke-opacity: 0.5;
+            stroke-dasharray: 4 2;
+        }
+        .interactive-dot:hover {
+            r: 6;
+            cursor: pointer;
+        }
+        /* Tap interaction from style guidance */
+        .tap-target:active {
+            transform: scale(0.98);
+            transition: all 200ms cubic-bezier(0.4, 0, 0.2, 1);
+        }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "on-tertiary-fixed-variant": "#394857",
+                      "on-secondary-container": "#acbc7a",
+                      "on-background": "#e5e1e4",
+                      "tertiary-fixed": "#d4e4f6",
+                      "inverse-surface": "#e5e1e4",
+                      "outline-variant": "#4d4635",
+                      "on-error-container": "#ffdad6",
+                      "surface-variant": "#353437",
+                      "on-primary": "#3c2f00",
+                      "secondary": "#bdce89",
+                      "on-surface": "#e5e1e4",
+                      "outline": "#99907c",
+                      "error": "#ffb4ab",
+                      "secondary-fixed": "#d9eaa3",
+                      "tertiary-container": "#a5b5c6",
+                      "on-secondary-fixed-variant": "#3e4c16",
+                      "on-tertiary-container": "#374755",
+                      "surface-container": "#201f21",
+                      "on-tertiary": "#223240",
+                      "on-secondary": "#283501",
+                      "primary": "#f2ca50",
+                      "background": "#131315",
+                      "on-secondary-fixed": "#161f00",
+                      "secondary-fixed-dim": "#bdce89",
+                      "on-primary-fixed": "#241a00",
+                      "surface": "#131315",
+                      "secondary-container": "#3e4c16",
+                      "surface-container-high": "#2a2a2c",
+                      "on-primary-container": "#554300",
+                      "surface-bright": "#39393b",
+                      "error-container": "#93000a",
+                      "surface-tint": "#e9c349",
+                      "surface-container-low": "#1b1b1d",
+                      "surface-dim": "#131315",
+                      "surface-container-lowest": "#0e0e10",
+                      "on-tertiary-fixed": "#0d1d2a",
+                      "tertiary": "#c0d0e2",
+                      "on-primary-fixed-variant": "#574500",
+                      "primary-fixed": "#ffe088",
+                      "inverse-primary": "#735c00",
+                      "on-error": "#690005",
+                      "primary-container": "#d4af37",
+                      "inverse-on-surface": "#303032",
+                      "primary-fixed-dim": "#e9c349",
+                      "on-surface-variant": "#d0c5af",
+                      "surface-container-highest": "#353437",
+                      "tertiary-fixed-dim": "#b8c8da"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.25rem",
+                      "lg": "0.5rem",
+                      "xl": "0.75rem",
+                      "full": "9999px"
+              },
+              "spacing": {
+                      "unit": "8px",
+                      "section-gap": "48px",
+                      "container-padding-desktop": "64px",
+                      "gutter": "16px",
+                      "container-padding-mobile": "20px"
+              },
+              "fontFamily": {
+                      "label-sm": ["Inter"],
+                      "display-lg-mobile": ["Newsreader"],
+                      "body-lg": ["Inter"],
+                      "headline-md": ["Newsreader"],
+                      "display-lg": ["Newsreader"],
+                      "signature-num": ["Newsreader"],
+                      "body-md": ["Inter"]
+              },
+              "fontSize": {
+                      "label-sm": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                      "display-lg-mobile": ["36px", {"lineHeight": "44px", "letterSpacing": "-0.01em", "fontWeight": "300"}],
+                      "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                      "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "400"}],
+                      "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "300"}],
+                      "signature-num": ["64px", {"lineHeight": "64px", "fontWeight": "200"}],
+                      "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}]
+              }
+            },
+          },
+        }
+      </script>
+</head>
+<body class="bg-background text-on-background font-body-md overflow-x-hidden">
+<!-- Desktop Side Navigation Shell -->
+<aside class="hidden md:flex flex-col h-full py-8 px-6 h-screen w-64 fixed left-0 top-0 bg-surface-container-low shadow-sm z-50">
+<div class="mb-12 px-2">
+<h1 class="font-display-lg text-display-lg text-primary">Chronos</h1>
+<p class="text-on-surface-variant font-body-md opacity-60">Personal Instrument</p>
+</div>
+<nav class="flex-1 space-y-2">
+<a class="flex items-center gap-4 px-4 py-3 rounded-xl hover:bg-surface-variant transition-colors text-on-surface-variant font-body-md tap-target" href="#">
+<span class="material-symbols-outlined">calendar_today</span>
+<span>Today</span>
+</a>
+<a class="flex items-center gap-4 px-4 py-3 rounded-xl hover:bg-surface-variant transition-colors text-on-surface-variant font-body-md tap-target" href="#">
+<span class="material-symbols-outlined">event_upcoming</span>
+<span>Plan Tomorrow</span>
+</a>
+<a class="flex items-center gap-4 px-4 py-3 rounded-xl bg-surface-variant text-primary font-bold border-b-2 border-primary tap-target" href="#">
+<span class="material-symbols-outlined">query_stats</span>
+<span>Charts</span>
+</a>
+<a class="flex items-center gap-4 px-4 py-3 rounded-xl hover:bg-surface-variant transition-colors text-on-surface-variant font-body-md tap-target" href="#">
+<span class="material-symbols-outlined">balance</span>
+<span>Category Weights</span>
+</a>
+<a class="flex items-center gap-4 px-4 py-3 rounded-xl hover:bg-surface-variant transition-colors text-on-surface-variant font-body-md tap-target" href="#">
+<span class="material-symbols-outlined">settings</span>
+<span>Settings</span>
+</a>
+</nav>
+<div class="mt-auto pt-8 border-t border-outline-variant/20 flex items-center gap-3 px-2">
+<div class="w-10 h-10 rounded-full bg-surface-container-highest border border-outline-variant overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="A sophisticated close-up portrait of a professional in their 30s with calm expression, soft cinematic lighting, warm amber tones, and deep black background, consistent with a high-end luxury minimalist aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDgRHcFtTbiCA9zjiH9C31HWWK2maE0lET--SdVQsyIWzY1P-vzshC4LJgaYvz-mP-s6HL0O8A8kKzchJySHNI2uh9pXR1neXaCiKZBM_t00XskQoPAhKDRqwuQlti2CRPj7eOtKXu79Yv0Y-O8W1cXB1ulbLYigZbLhJa-RTjYPdlH0zcqtbW_UmDmbgjsPcAGoXw7HkgOtPQUEcRTd2DGD6JEXjXCa6dggsNLnT2Iqg5LAVlOVKVJ0SIuykxevwpMHuecixeY6GCi"/>
+</div>
+<div>
+<p class="text-label-sm font-label-sm text-on-surface">Elias Thorne</p>
+<p class="text-[10px] text-on-surface-variant uppercase tracking-widest">Premium Tier</p>
+</div>
+</div>
+</aside>
+<!-- Main Content Canvas -->
+<main class="md:ml-64 px-container-padding-mobile md:px-container-padding-desktop py-12 pb-32 min-h-screen relative">
+<!-- Header Section -->
+<header class="mb-section-gap flex flex-col md:flex-row md:items-end justify-between gap-6">
+<div>
+<h2 class="font-headline-md text-headline-md text-on-background mb-2 italic">Monthly Trajectory</h2>
+<p class="text-on-surface-variant max-w-xl">A longitudinal view of your inner equilibrium. The golden line represents your aggregate Zen state across all monitored dimensions.</p>
+</div>
+<!-- Segmented Control -->
+<div class="flex bg-surface-container-lowest p-1 rounded-full border border-outline-variant/30 self-start">
+<button class="px-6 py-2 rounded-full text-label-sm font-label-sm text-on-surface-variant hover:text-on-surface transition-colors tap-target">Day</button>
+<button class="px-6 py-2 rounded-full text-label-sm font-label-sm text-on-surface-variant hover:text-on-surface transition-colors tap-target">Week</button>
+<button class="px-6 py-2 rounded-full bg-secondary-container text-on-secondary-container text-label-sm font-label-sm tap-target shadow-sm">Month</button>
+</div>
+</header>
+<!-- Chart Bento Section -->
+<section class="grid grid-cols-1 gap-gutter">
+<!-- Main Massive Chart Card -->
+<div class="bg-surface border border-outline-variant/20 rounded-2xl p-8 shadow-sm relative overflow-hidden group">
+<div class="absolute top-0 right-0 p-6 opacity-20 pointer-events-none">
+<span class="material-symbols-outlined text-6xl">insights</span>
+</div>
+<!-- SVG Chart Implementation -->
+<div class="w-full h-[400px] mt-4 relative chart-container">
+<svg class="w-full h-full" viewbox="0 0 1000 400">
+<!-- Horizontal Grid Lines -->
+<line class="grid-line" x1="50" x2="950" y1="50" y2="50"></line>
+<line class="grid-line" x1="50" x2="950" y1="150" y2="150"></line>
+<line class="grid-line" x1="50" x2="950" y1="250" y2="250"></line>
+<line class="grid-line" stroke-width="2" x1="50" x2="950" y1="350" y2="350"></line>
+<!-- Axis Labels -->
+<text class="axis-label" text-anchor="end" x="35" y="55">100%</text>
+<text class="axis-label" text-anchor="end" x="35" y="155">75%</text>
+<text class="axis-label" text-anchor="end" x="35" y="255">50%</text>
+<text class="axis-label" text-anchor="end" x="35" y="355">25%</text>
+<!-- Sub Lines (Muted Colors) -->
+<path class="line-sub stroke-tertiary" d="M50,300 Q200,320 350,280 T650,220 T950,250"></path>
+<path class="line-sub stroke-secondary" d="M50,220 Q200,200 350,240 T650,180 T950,190"></path>
+<path class="line-sub stroke-on-tertiary-fixed-variant" d="M50,340 Q200,310 350,330 T650,280 T950,290"></path>
+<path class="line-sub stroke-outline" d="M50,180 Q200,160 350,190 T650,140 T950,120"></path>
+<!-- Main Thick Gold Line -->
+<path class="line-main" d="M50,250 Q200,220 350,240 T650,120 T950,140"></path>
+<!-- Interactive Nodes -->
+<circle class="fill-primary interactive-dot transition-all" cx="350" cy="240" r="4"></circle>
+<circle class="fill-primary interactive-dot transition-all" cx="650" cy="120" r="4"></circle>
+<circle class="fill-primary interactive-dot transition-all" cx="950" cy="140" r="4"></circle>
+<!-- Timeline labels -->
+<text class="axis-label" x="50" y="385">Oct 01</text>
+<text class="axis-label" text-anchor="middle" x="350" y="385">Oct 10</text>
+<text class="axis-label" text-anchor="middle" x="650" y="385">Oct 20</text>
+<text class="axis-label" text-anchor="end" x="950" y="385">Oct 31</text>
+</svg>
+</div>
+<!-- Legend / Toggles -->
+<div class="mt-12 flex flex-wrap justify-center gap-4">
+<button class="flex items-center gap-3 px-5 py-2 rounded-full bg-primary-container/10 border border-primary text-primary tap-target transition-all">
+<span class="w-2 h-2 rounded-full bg-primary shadow-[0_0_8px_#f2ca50]"></span>
+<span class="text-label-sm font-label-sm">Overall Zen</span>
+</button>
+<button class="flex items-center gap-3 px-5 py-2 rounded-full bg-surface-container-high border border-outline-variant/30 text-on-surface-variant hover:border-tertiary transition-all tap-target">
+<span class="w-2 h-2 rounded-full bg-tertiary"></span>
+<span class="text-label-sm font-label-sm">Mental Flow</span>
+</button>
+<button class="flex items-center gap-3 px-5 py-2 rounded-full bg-surface-container-high border border-outline-variant/30 text-on-surface-variant hover:border-secondary transition-all tap-target">
+<span class="w-2 h-2 rounded-full bg-secondary"></span>
+<span class="text-label-sm font-label-sm">Physical Vitality</span>
+</button>
+<button class="flex items-center gap-3 px-5 py-2 rounded-full bg-surface-container-high border border-outline-variant/30 text-on-surface-variant hover:border-on-tertiary-fixed-variant transition-all tap-target">
+<span class="w-2 h-2 rounded-full bg-on-tertiary-fixed-variant"></span>
+<span class="text-label-sm font-label-sm">Creative Output</span>
+</button>
+<button class="flex items-center gap-3 px-5 py-2 rounded-full bg-surface-container-high border border-outline-variant/30 text-on-surface-variant hover:border-outline transition-all tap-target">
+<span class="w-2 h-2 rounded-full bg-outline"></span>
+<span class="text-label-sm font-label-sm">Social Battery</span>
+</button>
+</div>
+</div>
+<!-- Insights Row -->
+<div class="grid grid-cols-1 md:grid-cols-3 gap-gutter mt-8">
+<!-- Highlight Card 1 -->
+<div class="bg-surface-container-low border border-outline-variant/10 rounded-2xl p-8 hover:bg-surface-container-high transition-colors group">
+<p class="text-label-sm font-label-sm text-on-surface-variant mb-6 uppercase tracking-widest">Consistency</p>
+<h3 class="font-signature-num text-signature-num text-secondary mb-2 italic">14<span class="text-body-lg font-body-lg not-italic ml-2">days</span></h3>
+<p class="text-on-surface-variant text-body-md">Sustained state above 70th percentile. Your longest period of intentional calm this year.</p>
+</div>
+<!-- Highlight Card 2 -->
+<div class="bg-surface-container-low border border-outline-variant/10 rounded-2xl p-8 hover:bg-surface-container-high transition-colors group relative overflow-hidden">
+<div class="absolute inset-0 z-0 opacity-10">
+
+</div>
+<div class="relative z-10">
+<p class="text-label-sm font-label-sm text-on-surface-variant mb-6 uppercase tracking-widest">Peak Alignment</p>
+<h3 class="font-signature-num text-signature-num text-primary mb-2 italic">8.9<span class="text-body-lg font-body-lg not-italic ml-2">index</span></h3>
+<p class="text-on-surface-variant text-body-md">Reached on Oct 24. Correlated with 15-minute morning meditation sessions.</p>
+</div>
+</div>
+<!-- Highlight Card 3 -->
+<div class="bg-surface-container-low border border-outline-variant/10 rounded-2xl p-8 hover:bg-surface-container-high transition-colors group">
+<p class="text-label-sm font-label-sm text-on-surface-variant mb-6 uppercase tracking-widest">Volatility</p>
+<h3 class="font-signature-num text-signature-num text-tertiary mb-2 italic">-12<span class="text-body-lg font-body-lg not-italic ml-2">%</span></h3>
+<p class="text-on-surface-variant text-body-md">Reduction in emotional variance compared to September. Stability is improving.</p>
+</div>
+</div>
+</section>
+</main>
+<!-- Mobile Navigation Shell -->
+<nav class="fixed bottom-0 w-full z-50 flex justify-around items-center px-4 py-3 md:hidden bg-surface-container shadow-lg">
+<a class="flex flex-col items-center justify-center text-on-surface-variant px-4 py-1 tap-target" href="#">
+<span class="material-symbols-outlined">calendar_today</span>
+<span class="font-label-sm text-label-sm mt-1">Today</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant px-4 py-1 tap-target" href="#">
+<span class="material-symbols-outlined">event_upcoming</span>
+<span class="font-label-sm text-label-sm mt-1">Plan</span>
+</a>
+<a class="flex flex-col items-center justify-center bg-secondary-container text-on-secondary-container rounded-full px-4 py-1 tap-target" href="#">
+<span class="material-symbols-outlined">query_stats</span>
+<span class="font-label-sm text-label-sm mt-1">Stats</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant px-4 py-1 tap-target" href="#">
+<span class="material-symbols-outlined">balance</span>
+<span class="font-label-sm text-label-sm mt-1">Weights</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant px-4 py-1 tap-target" href="#">
+<span class="material-symbols-outlined">settings</span>
+<span class="font-label-sm text-label-sm mt-1">Settings</span>
+</a>
+</nav>
+<script>
+        // Minimal interaction logic for chips
+        document.querySelectorAll('.tap-target').forEach(button => {
+            button.addEventListener('click', function() {
+                if (this.classList.contains('bg-surface-container-high')) {
+                    // Toggle On
+                    this.classList.remove('bg-surface-container-high', 'text-on-surface-variant');
+                    this.classList.add('bg-primary-container/10', 'border-primary', 'text-primary');
+                } else if (this.classList.contains('bg-primary-container/10')) {
+                    // Toggle Off
+                    this.classList.add('bg-surface-container-high', 'text-on-surface-variant');
+                    this.classList.remove('bg-primary-container/10', 'border-primary', 'text-primary');
+                }
+            });
+        });
+
+        // Hover effect for dots on desktop
+        const dots = document.querySelectorAll('.interactive-dot');
+        dots.forEach(dot => {
+            dot.addEventListener('mouseenter', () => {
+                dot.setAttribute('r', '8');
+            });
+            dot.addEventListener('mouseleave', () => {
+                dot.setAttribute('r', '4');
+            });
+        });
+    </script>
+</body></html>

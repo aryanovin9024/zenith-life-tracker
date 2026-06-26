@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Zen Nocturne | Personal Instrument</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Newsreader:ital,wght@0,200;0,300;0,400;1,200&family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&family=Newsreader:wght@100..900&display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "on-tertiary-fixed-variant": "#394857",
+                    "on-secondary-container": "#acbc7a",
+                    "on-background": "#e5e1e4",
+                    "tertiary-fixed": "#d4e4f6",
+                    "inverse-surface": "#e5e1e4",
+                    "outline-variant": "#4d4635",
+                    "on-error-container": "#ffdad6",
+                    "surface-variant": "#353437",
+                    "on-primary": "#3c2f00",
+                    "secondary": "#bdce89",
+                    "on-surface": "#e5e1e4",
+                    "outline": "#99907c",
+                    "error": "#ffb4ab",
+                    "secondary-fixed": "#d9eaa3",
+                    "tertiary-container": "#a5b5c6",
+                    "on-secondary-fixed-variant": "#3e4c16",
+                    "on-tertiary-container": "#374755",
+                    "surface-container": "#201f21",
+                    "on-tertiary": "#223240",
+                    "on-secondary": "#283501",
+                    "primary": "#f2ca50",
+                    "background": "#131315",
+                    "on-secondary-fixed": "#161f00",
+                    "secondary-fixed-dim": "#bdce89",
+                    "on-primary-fixed": "#241a00",
+                    "surface": "#131315",
+                    "secondary-container": "#3e4c16",
+                    "surface-container-high": "#2a2a2c",
+                    "on-primary-container": "#554300",
+                    "surface-bright": "#39393b",
+                    "error-container": "#93000a",
+                    "surface-tint": "#e9c349",
+                    "surface-container-low": "#1b1b1d",
+                    "surface-dim": "#131315",
+                    "surface-container-lowest": "#0e0e10",
+                    "on-tertiary-fixed": "#0d1d2a",
+                    "tertiary": "#c0d0e2",
+                    "on-primary-fixed-variant": "#574500",
+                    "primary-fixed": "#ffe088",
+                    "inverse-primary": "#735c00",
+                    "on-error": "#690005",
+                    "primary-container": "#d4af37",
+                    "inverse-on-surface": "#303032",
+                    "primary-fixed-dim": "#e9c349",
+                    "on-surface-variant": "#d0c5af",
+                    "surface-container-highest": "#353437",
+                    "tertiary-fixed-dim": "#b8c8da"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "unit": "8px",
+                    "section-gap": "48px",
+                    "container-padding-desktop": "64px",
+                    "gutter": "16px",
+                    "container-padding-mobile": "20px"
+            },
+            "fontFamily": {
+                    "label-sm": ["Inter"],
+                    "display-lg-mobile": ["Newsreader"],
+                    "body-lg": ["Inter"],
+                    "headline-md": ["Newsreader"],
+                    "display-lg": ["Newsreader"],
+                    "signature-num": ["Newsreader"],
+                    "body-md": ["Inter"]
+            },
+            "fontSize": {
+                    "label-sm": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                    "display-lg-mobile": ["36px", {"lineHeight": "44px", "letterSpacing": "-0.01em", "fontWeight": "300"}],
+                    "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                    "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "400"}],
+                    "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "300"}],
+                    "signature-num": ["64px", {"lineHeight": "64px", "fontWeight": "200"}],
+                    "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        body {
+            background-color: #131315;
+            color: #e5e1e4;
+            -webkit-tap-highlight-color: transparent;
+        }
+        .midnight-blur {
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.4);
+        }
+        .active-sink:active {
+            transform: scale(0.98);
+            box-shadow: none;
+            transition: all 0.2s ease;
+        }
+        .custom-scrollbar::-webkit-scrollbar {
+            height: 0px;
+            width: 0px;
+        }
+        .fade-edge {
+            mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+        }
+        .task-item {
+            border-bottom: 1px solid #2c2c2e;
+        }
+        .task-item:last-child {
+            border-bottom: none;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="font-body-md text-body-md antialiased overflow-x-hidden pb-24">
+<!-- Header Section -->
+<header class="pt-12 px-container-padding-mobile pb-8">
+<div class="flex justify-between items-end">
+<div>
+<h2 class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-widest mb-1">Current State</h2>
+<h1 class="font-display-lg-mobile text-display-lg-mobile text-primary">Zen Nocturne</h1>
+</div>
+<div class="w-12 h-12 rounded-full border border-outline-variant overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="A close-up, high-detail portrait of a calm individual with serene lighting, reflecting a minimalist and professional aesthetic. The lighting is soft and moody, emphasizing a sense of personal sanctuary and mental clarity. Dark, rich tones dominate the background, maintaining consistency with the ink-black UI theme." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBMRWLkmGKV3kpMWY1GQIZJNVOFzfYy5Idt-dpBKATnlOhFFxroxXuR_ptGFHbPw1rxCi--PnxZdeGHTfGHc1QG1pTxJaHxWUu0Z2oPY-FT0sWizKehZk2j-OE7liw7sTFv3VR6vBRfOORxjmxqjkyvaeeZOJgMhM1flK0GAZMnz8ddKBW1u4hX2aD95lfu82DeUfzUKEu4fSps2jUZn7R0Noo4JAiCTm9BwomCO1vf93HreUNlpmJLKKS1v8WmwxpMTU-TnO_9U_GO"/>
+</div>
+</div>
+</header>
+<!-- Overall Hero Metric -->
+<section class="px-container-padding-mobile mb-section-gap">
+<div class="bg-surface-container border border-outline-variant p-6 rounded-xl midnight-blur active-sink">
+<div class="flex justify-between items-start mb-4">
+<span class="font-label-sm text-label-sm text-on-surface-variant">Overall Balance</span>
+<span class="material-symbols-outlined text-primary" style="font-variation-settings: 'FILL' 1;">insights</span>
+</div>
+<div class="flex items-baseline gap-2">
+<span class="font-signature-num text-signature-num text-primary italic">88</span>
+<span class="font-headline-md text-headline-md text-on-surface-variant">/100</span>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant mt-2 leading-relaxed">Your instrument is finely tuned. Work and health are in rare harmony today.</p>
+</div>
+</section>
+<!-- Progress Chart (Monthly View) -->
+<section class="mb-section-gap">
+<div class="px-container-padding-mobile flex justify-between items-center mb-6">
+<h3 class="font-headline-md text-headline-md">Monthly Flux</h3>
+<span class="font-label-sm text-label-sm text-on-surface-variant">OCTOBER</span>
+</div>
+<div class="h-48 w-full relative px-4 overflow-hidden">
+<!-- Simulated Chart using Flex and Divs for consistent UI feel without external libs -->
+<div class="flex items-end justify-between h-full w-full gap-1">
+<div class="w-full bg-secondary-container opacity-20 rounded-t-sm h-[40%]"></div>
+<div class="w-full bg-secondary-container opacity-30 rounded-t-sm h-[55%]"></div>
+<div class="w-full bg-secondary-container opacity-40 rounded-t-sm h-[45%]"></div>
+<div class="w-full bg-secondary-container opacity-20 rounded-t-sm h-[30%]"></div>
+<div class="w-full bg-primary opacity-60 rounded-t-sm h-[70%]"></div>
+<div class="w-full bg-secondary-container opacity-40 rounded-t-sm h-[60%]"></div>
+<div class="w-full bg-primary opacity-80 rounded-t-sm h-[85%]"></div>
+<div class="w-full bg-primary rounded-t-sm h-[95%]"></div>
+<div class="w-full bg-secondary-container opacity-50 rounded-t-sm h-[65%]"></div>
+<div class="w-full bg-secondary-container opacity-30 rounded-t-sm h-[40%]"></div>
+<div class="w-full bg-secondary-container opacity-20 rounded-t-sm h-[20%]"></div>
+<div class="w-full bg-primary opacity-70 rounded-t-sm h-[75%]"></div>
+<div class="w-full bg-secondary-container opacity-40 rounded-t-sm h-[50%]"></div>
+<div class="w-full bg-primary opacity-90 rounded-t-sm h-[90%]"></div>
+</div>
+<div class="absolute inset-0 flex flex-col justify-between pointer-events-none px-4 py-2">
+<div class="border-t border-outline-variant opacity-20 w-full"></div>
+<div class="border-t border-outline-variant opacity-20 w-full"></div>
+<div class="border-t border-outline-variant opacity-20 w-full"></div>
+</div>
+</div>
+</section>
+<!-- Vertical Stat Stack -->
+<section class="px-container-padding-mobile mb-section-gap space-y-4">
+<h3 class="font-headline-md text-headline-md mb-6">Pillars</h3>
+<!-- Fitness -->
+<div class="flex items-center justify-between p-5 bg-surface-container border border-outline-variant rounded-xl active-sink">
+<div class="flex items-center gap-4">
+<div class="w-10 h-10 rounded-full bg-secondary-container flex items-center justify-center">
+<span class="material-symbols-outlined text-on-secondary-container">fitness_center</span>
+</div>
+<div>
+<h4 class="font-body-md text-body-md font-semibold">Fitness</h4>
+<span class="font-label-sm text-label-sm text-on-surface-variant">Daily Movement</span>
+</div>
+</div>
+<div class="text-right">
+<span class="font-headline-md text-headline-md text-secondary block">92%</span>
+</div>
+</div>
+<!-- Work -->
+<div class="flex items-center justify-between p-5 bg-surface-container border border-outline-variant rounded-xl active-sink">
+<div class="flex items-center gap-4">
+<div class="w-10 h-10 rounded-full bg-tertiary-container flex items-center justify-center">
+<span class="material-symbols-outlined text-on-tertiary-container">work</span>
+</div>
+<div>
+<h4 class="font-body-md text-body-md font-semibold">Work</h4>
+<span class="font-label-sm text-label-sm text-on-surface-variant">Deep Focus</span>
+</div>
+</div>
+<div class="text-right">
+<span class="font-headline-md text-headline-md text-tertiary block">74%</span>
+</div>
+</div>
+<!-- Learning -->
+<div class="flex items-center justify-between p-5 bg-surface-container border border-outline-variant rounded-xl active-sink">
+<div class="flex items-center gap-4">
+<div class="w-10 h-10 rounded-full bg-primary-container/20 flex items-center justify-center">
+<span class="material-symbols-outlined text-primary">menu_book</span>
+</div>
+<div>
+<h4 class="font-body-md text-body-md font-semibold">Learning</h4>
+<span class="font-label-sm text-label-sm text-on-surface-variant">Cognitive Expansion</span>
+</div>
+</div>
+<div class="text-right">
+<span class="font-headline-md text-headline-md text-primary block">65%</span>
+</div>
+</div>
+<!-- Relationships -->
+<div class="flex items-center justify-between p-5 bg-surface-container border border-outline-variant rounded-xl active-sink">
+<div class="flex items-center gap-4">
+<div class="w-10 h-10 rounded-full bg-error-container/20 flex items-center justify-center">
+<span class="material-symbols-outlined text-error">favorite</span>
+</div>
+<div>
+<h4 class="font-body-md text-body-md font-semibold">Relationships</h4>
+<span class="font-label-sm text-label-sm text-on-surface-variant">Meaningful Connection</span>
+</div>
+</div>
+<div class="text-right">
+<span class="font-headline-md text-headline-md text-error block">81%</span>
+</div>
+</div>
+</section>
+<!-- Task List -->
+<section class="px-container-padding-mobile mb-section-gap">
+<div class="flex justify-between items-center mb-6">
+<h3 class="font-headline-md text-headline-md">Focus Path</h3>
+<button class="text-primary font-label-sm text-label-sm flex items-center gap-1">
+                VIEW ALL <span class="material-symbols-outlined text-[16px]">arrow_forward</span>
+</button>
+</div>
+<div class="bg-surface-container-low border border-outline-variant rounded-xl overflow-hidden">
+<!-- Task 1 -->
+<div class="task-item p-5 flex items-center gap-4">
+<div class="w-6 h-6 border-2 border-outline-variant rounded-full flex-shrink-0"></div>
+<div class="flex-grow">
+<p class="font-body-md text-body-md">Morning meditation & reflection</p>
+<div class="flex items-center gap-2 mt-1">
+<span class="inline-block w-2 h-2 rounded-full bg-primary"></span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">Learning</span>
+</div>
+</div>
+<span class="font-label-sm text-label-sm text-on-surface-variant">08:00</span>
+</div>
+<!-- Task 2 -->
+<div class="task-item p-5 flex items-center gap-4">
+<div class="w-6 h-6 border-2 border-primary rounded-full flex-shrink-0 flex items-center justify-center">
+<span class="material-symbols-outlined text-[14px] text-primary" style="font-variation-settings: 'FILL' 1;">check</span>
+</div>
+<div class="flex-grow">
+<p class="font-body-md text-body-md opacity-50 line-through">High-intensity interval training</p>
+<div class="flex items-center gap-2 mt-1">
+<span class="inline-block w-2 h-2 rounded-full bg-secondary"></span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">Fitness</span>
+</div>
+</div>
+<span class="font-label-sm text-label-sm text-on-surface-variant">06:30</span>
+</div>
+<!-- Task 3 -->
+<div class="task-item p-5 flex items-center gap-4">
+<div class="w-6 h-6 border-2 border-outline-variant rounded-full flex-shrink-0"></div>
+<div class="flex-grow">
+<p class="font-body-md text-body-md">Draft annual performance review</p>
+<div class="flex items-center gap-2 mt-1">
+<span class="inline-block w-2 h-2 rounded-full bg-tertiary"></span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">Work</span>
+</div>
+</div>
+<span class="font-label-sm text-label-sm text-on-surface-variant">10:00</span>
+</div>
+</div>
+</section>
+<!-- Bottom Navigation Shell -->
+<nav class="fixed bottom-0 w-full z-50 flex justify-around items-center px-4 py-3 bg-surface-container shadow-lg md:hidden">
+<a class="flex flex-col items-center justify-center bg-secondary-container text-on-secondary-container rounded-full px-4 py-1 transition-all duration-150 active:scale-95" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">calendar_today</span>
+<span class="font-label-sm text-label-sm mt-0.5">Today</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant px-4 py-1 hover:bg-surface-container-high transition-colors active:scale-95" href="#">
+<span class="material-symbols-outlined">event_upcoming</span>
+<span class="font-label-sm text-label-sm mt-0.5">Plan</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant px-4 py-1 hover:bg-surface-container-high transition-colors active:scale-95" href="#">
+<span class="material-symbols-outlined">query_stats</span>
+<span class="font-label-sm text-label-sm mt-0.5">Stats</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant px-4 py-1 hover:bg-surface-container-high transition-colors active:scale-95" href="#">
+<span class="material-symbols-outlined">balance</span>
+<span class="font-label-sm text-label-sm mt-0.5">Weights</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant px-4 py-1 hover:bg-surface-container-high transition-colors active:scale-95" href="#">
+<span class="material-symbols-outlined">settings</span>
+<span class="font-label-sm text-label-sm mt-0.5">Settings</span>
+</a>
+</nav>
+<!-- Floating Action Button for Today Context -->
+<button class="fixed bottom-24 right-6 w-14 h-14 bg-primary text-on-primary rounded-full shadow-xl flex items-center justify-center active:scale-90 transition-transform">
+<span class="material-symbols-outlined text-[32px]">add</span>
+</button>
+<script>
+        // Simple touch interaction feedback
+        document.querySelectorAll('.active-sink').forEach(card => {
+            card.addEventListener('touchstart', () => {
+                card.style.transform = 'scale(0.98)';
+                card.style.boxShadow = 'none';
+            });
+            card.addEventListener('touchend', () => {
+                card.style.transform = 'scale(1)';
+                card.style.boxShadow = '';
+            });
+        });
+    </script>
+</body></html>

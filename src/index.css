@@ -1,0 +1,208 @@
+@import 'tailwindcss';
+
+/* ===========================================================================
+   Zen Nocturne — design tokens (ported from design/zen_nocturne/DESIGN.md and
+   the export's tailwind.config). The four category colors below are the §2
+   "backbone" and intentionally override the export's Material placeholders.
+   =========================================================================== */
+@theme {
+  /* surfaces (ink-black, tonal elevation) */
+  --color-background: #131315;
+  --color-surface: #131315;
+  --color-surface-dim: #131315;
+  --color-surface-bright: #39393b;
+  --color-surface-container-lowest: #0e0e10;
+  --color-surface-container-low: #1b1b1d;
+  --color-surface-container: #201f21;
+  --color-surface-container-high: #2a2a2c;
+  --color-surface-container-highest: #353437;
+  --color-surface-variant: #353437;
+
+  /* text / lines */
+  --color-on-background: #e5e1e4;
+  --color-on-surface: #e5e1e4;
+  --color-on-surface-variant: #d0c5af;
+  --color-outline: #99907c;
+  --color-outline-variant: #4d4635;
+  --color-ink-border: #2c2c2e;
+
+  /* overall / primary (Deep Gold) */
+  --color-primary: #f2ca50;
+  --color-on-primary: #3c2f00;
+  --color-primary-container: #d4af37;
+  --color-on-primary-container: #554300;
+  --color-surface-tint: #e9c349;
+
+  /* the five-color backbone */
+  --color-overall: #f2ca50;
+  --color-fitness: #8a9a5b; /* sage green */
+  --color-work: #708090; /* slate blue */
+  --color-learning: #b87333; /* ochre */
+  --color-relationships: #c04000; /* terracotta */
+
+  /* kept from the export for surface accents */
+  --color-secondary-container: #3e4c16;
+  --color-on-secondary-container: #acbc7a;
+  --color-error: #ffb4ab;
+  --color-error-container: #93000a;
+
+  /* fonts */
+  --font-sans: 'Inter', ui-sans-serif, system-ui, sans-serif;
+  --font-serif: 'Newsreader', Georgia, 'Times New Roman', serif;
+
+  /* type scale (size / line-height / weight / tracking) */
+  --text-label-sm: 12px;
+  --text-label-sm--line-height: 16px;
+  --text-label-sm--font-weight: 600;
+  --text-label-sm--letter-spacing: 0.05em;
+
+  --text-body-md: 16px;
+  --text-body-md--line-height: 24px;
+
+  --text-body-lg: 18px;
+  --text-body-lg--line-height: 28px;
+
+  --text-headline-md: 24px;
+  --text-headline-md--line-height: 32px;
+  --text-headline-md--font-weight: 400;
+
+  --text-display-lg-mobile: 36px;
+  --text-display-lg-mobile--line-height: 44px;
+  --text-display-lg-mobile--font-weight: 300;
+  --text-display-lg-mobile--letter-spacing: -0.01em;
+
+  --text-display-lg: 48px;
+  --text-display-lg--line-height: 56px;
+  --text-display-lg--font-weight: 300;
+  --text-display-lg--letter-spacing: -0.02em;
+
+  --text-signature-num: 64px;
+  --text-signature-num--line-height: 64px;
+  --text-signature-num--font-weight: 200;
+}
+
+/* ===========================================================================
+   base
+   =========================================================================== */
+html {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background: var(--color-background);
+  color: var(--color-on-surface);
+  font-family: var(--font-sans);
+  font-size: 16px;
+  line-height: 24px;
+}
+
+::selection {
+  background: rgba(242, 202, 80, 0.3);
+}
+
+/* ===========================================================================
+   ported utilities (from the export <style>)
+   =========================================================================== */
+.material-symbols-outlined {
+  font-family: 'Material Symbols Outlined';
+  font-weight: normal;
+  font-style: normal;
+  font-size: 24px;
+  line-height: 1;
+  letter-spacing: normal;
+  text-transform: none;
+  display: inline-block;
+  white-space: nowrap;
+  word-wrap: normal;
+  direction: ltr;
+  font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 24;
+  -webkit-font-feature-settings: 'liga';
+  -webkit-font-smoothing: antialiased;
+}
+.material-symbols-outlined.fill {
+  font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+}
+
+.midnight-blur {
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.4);
+}
+
+.ink-border {
+  border: 1px solid var(--color-ink-border);
+}
+
+.transition-sink {
+  transition: transform 0.15s ease, box-shadow 0.15s ease, border-color 0.2s ease,
+    background-color 0.2s ease;
+}
+.transition-sink:active {
+  transform: scale(0.98);
+  box-shadow: none;
+}
+
+/* gold glow for the dominant overall chart line */
+.gold-glow {
+  filter: drop-shadow(0 0 8px rgba(242, 202, 80, 0.2));
+}
+
+/* journal-style underline inputs */
+.underline-input {
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid var(--color-outline);
+  border-radius: 0;
+  padding: 0.5rem 0.125rem;
+  color: var(--color-on-surface);
+  transition: border-color 0.2s ease;
+  width: 100%;
+}
+.underline-input::placeholder {
+  color: var(--color-outline);
+  opacity: 0.55;
+}
+.underline-input:focus {
+  outline: none;
+  border-bottom-width: 2px;
+  border-color: var(--color-primary);
+}
+
+/* recent-activity timeline connector */
+.timeline-item {
+  position: relative;
+}
+.timeline-item .timeline-line::before {
+  content: '';
+  position: absolute;
+  left: 7px;
+  top: 24px;
+  bottom: -24px;
+  width: 1px;
+  background: var(--color-ink-border);
+}
+.timeline-item:last-child .timeline-line::before {
+  display: none;
+}
+
+.custom-scroll::-webkit-scrollbar {
+  width: 4px;
+  height: 4px;
+}
+.custom-scroll::-webkit-scrollbar-track {
+  background: transparent;
+}
+.custom-scroll::-webkit-scrollbar-thumb {
+  background: var(--color-ink-border);
+  border-radius: 10px;
+}
+
+/* recharts tweaks */
+.recharts-surface {
+  overflow: visible;
+}
+.recharts-wrapper:focus,
+.recharts-surface:focus {
+  outline: none;
+}
